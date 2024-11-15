@@ -35,12 +35,16 @@ func main() {
 
 	strJoin := str.String()
 	strRune := []rune(strJoin)
-
-	fmt.Println(strJoin, strRune)
+	fmt.Printf("Result string: %s\nRune: %v\n", strJoin, strRune)
 
 	sault := "go-2024"
+	var password []rune
+	password = append(password, strRune[:len(strRune)/2]...)
+	password = append(password, []rune(sault)...)
+	password = append(password, strRune[len(strRune)/2:]...)
+
 	hasher := sha256.New()
-	hasher.Write([]byte(sault + strJoin))
-	fmt.Println(hex.EncodeToString(hasher.Sum(nil)))
+	hasher.Write([]byte(string(password)))
+	fmt.Printf("PASSWORD: %s\nHASH: %s\n", string(password), hex.EncodeToString(hasher.Sum(nil)))
 
 }
